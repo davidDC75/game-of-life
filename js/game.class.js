@@ -5,7 +5,6 @@ class Game {
     nextGrid = new Array(new Array);
     gridSize = 0;
     grid = Object;
-    brain = Object;
 
     constructor(gridContainer,gridSize) {
         this.gridSize = gridSize;
