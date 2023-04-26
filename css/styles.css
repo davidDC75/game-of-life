@@ -24,5 +24,6 @@ div#grid span.aliveCell {
 div#grid div.gridRow {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     gap: 0px;
 }
