@@ -14,7 +14,7 @@ class Grid {
 
             for(let x=0; x<game.gridSize; x++) {
                 let cell=document.createElement('span');
-                let id='cell-id-'+count;
+                let id=game.cellIdPrefix+count;
                 cell.setAttribute('id',id);
                 cell.classList.add('cellCommon','deadCell');
                 row.appendChild(cell);
@@ -36,11 +36,13 @@ class Grid {
 
     }
 
-    setDeadCell(grid,x,y) {
-
+    setDeadCell(cell) {
+        cell.classList.remove('aliveCell');
+        cell.classList.add('deadCell');
     }
 
-    setAliveCell(grid,x,y) {
-
+    setAliveCell(cell) {
+        cell.classList.remove('deadCell');
+        cell.classList.add('aliveCell');
     }
 }

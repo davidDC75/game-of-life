@@ -3,6 +3,8 @@
     with HTML, CSS and Javascript */
 
 gridSize=10;
+cellIdPrefix='cell-id-';
+timer=1000;
 gridContainer=document.getElementById('grid');
 
-game= new Game(gridContainer,gridSize);
+game= new Game(gridContainer,gridSize,cellIdPrefix,timer);
