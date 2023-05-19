@@ -11,17 +11,19 @@ class Grid {
         for(let y=0; y<game.gridSize; y++) {
             let row=document.createElement('div');
             row.classList.add('gridRow');
+            game.currentGrid[y]=new Array(game.gridSize);
+            game.nextGrid[y]=new Array(game.gridSize);
 
             for(let x=0; x<game.gridSize; x++) {
                 let cell=document.createElement('div');
                 let id=game.cellIdPrefix+count;
                 cell.setAttribute('id',id);
                 cell.classList.add('cellCommon','deadCell');
-                game.currentGrid[y]=new Array(game.gridSize);
-                game.nextGrid[y]=new Array(game.gridSize);
                 game.currentGrid[y][x]=0;
+                game.nextGrid[y][x]=0;
                 cell.addEventListener('click', () => {
                     game.clickCell(x,y,id);
+                    // game.calculateNeighborhood(x,y);
                 });
                 row.appendChild(cell);
                 count++;

@@ -59,7 +59,7 @@ class Game {
         for (let y=0;y<this.gridSize;y++) {
             for (let x=0;x<this.gridSize;x++) {
                 let neighborhood=this.calculateNeighborhood(x,y);
-                if (this.currentGrid[y][x]==0 && neighborhood==2) {
+                if (this.currentGrid[y][x]==0 && neighborhood==3) {
                     this.nextGrid[y][x]=1;
                     this.grid.setAliveCell(this.cellIdPrefix+count);
                 } else if (this.currentGrid[y][x]==1 && (neighborhood==2 || neighborhood==3)) {
@@ -69,8 +69,7 @@ class Game {
                     this.nextGrid[y][x]=0;
                     this.grid.setDeadCell(this.cellIdPrefix+count);
                 } else {
-                    this.nextGrid[y][x]=0;
-                    this.grid.setDeadCell(this.cellIdPrefix+count);
+                    this.nextGrid[y][x]=this.currentGrid[y][x];
                 }
                 count++;
             }
@@ -79,10 +78,10 @@ class Game {
     }
 
     calculateNeighborhood(x,y) {
-        let top= (y==0) ? this.gridSize-1 : y-1;
-        let bottom= (y==this.gridSize-1) ? 0 : y+1;
-        let left= (x==0) ? this.gridSize-1 : x-1;
-        let right= (x==this.gridSize-1) ? 0 : x+1;
+        let top = (y==0) ? this.gridSize-1 : y-1;
+        let bottom = (y==this.gridSize-1) ? 0 : y+1;
+        let left = (x==0) ? this.gridSize-1 : x-1;
+        let right = (x==this.gridSize-1) ? 0 : x+1;
         let nbCell=0;
         // On commence par top et on tourne dans le sens d'une aiguille d'une montre
         if (this.currentGrid[top][x]==1) nbCell++;
@@ -93,6 +92,7 @@ class Game {
         if (this.currentGrid[bottom][left]==1) nbCell++;
         if (this.currentGrid[y][left]==1) nbCell++;
         if (this.currentGrid[top][left]==1) nbCell++;
+        //console.log('[x]:'+x+' [y]:'+y+'='+this.currentGrid[y][x]+" / voisin : "+nbCell);
         return nbCell;
     }
 
