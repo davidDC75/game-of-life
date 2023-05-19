@@ -7,23 +7,24 @@ div#grid {
     display: block;
 }
 
-div#grid span.cellCommon {
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-}
-
-div#grid span.deadCell {
-    background-color: #FFFFFF;
-}
-
-div#grid span.aliveCell {
-    background-color: #0000FF;
-}
-
 div#grid div.gridRow {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 0px;
 }
+
+div#grid div.cellCommon {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+}
+
+div#grid div.deadCell {
+    background-color: #FFFFFF;
+}
+
+div#grid div.aliveCell {
+    background-color: #0000FF;
+}
+

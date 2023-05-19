@@ -1,11 +1,11 @@
 class Game {
 
     isPlaying = false;
-    currentGrid = new Array(new Array);
-    nextGrid = new Array(new Array);
+    currentGrid = null;
+    nextGrid = null;
     gridSize = 0;
     cellIdPrefix = '';
-    timer = 0;
+    timer = 3500;
     myInterval = Object;
     grid = Object;
 
@@ -13,6 +13,10 @@ class Game {
         this.gridSize = gridSize;
         this.cellIdPrefix = cellIdPrefix;
         this.timer = 0;
+
+        this.currentGrid=new Array(gridSize);
+        this.nextGrid=new Array(gridSize);
+
         this.grid = new Grid(gridContainer);
         this.grid.drawEmptyGrid(this);
         let play = document.getElementById('play-button');
@@ -32,7 +36,10 @@ class Game {
     play() {
         if (!this.isPlaying) {
             this.isPlaying = true;
-            this.myInterval = setInterval(this.calculateNextGrid(),this.timer);
+            this.myInterval = setInterval( ()=> {
+                this.calculateNextGrid();
+            },this.timer);
+        //     this.calculateNextGrid();
         }
     }
 
@@ -48,25 +55,23 @@ class Game {
     }
 
     calculateNextGrid() {
-        console.log('Dans calculateNextGrid');
         let count=0;
         for (let y=0;y<this.gridSize;y++) {
             for (let x=0;x<this.gridSize;x++) {
                 let cell=document.getElementById(this.cellIdPrefix+count);
-                console.log("id cell : "+this.cellIdPrefix+count)
                 let neighborhood=this.calculateNeighborhood(x,y);
-                if (this.currentGrid[x,y]==0 && neighborhood==2) {
-                    this.nextGrid[x,y]=1;
-                    this.grid.setAliveCell(cell);
-                } else if (this.currentGrid[x,y]==1 && (neighborhood==2 || neighborhood==3)) {
-                    this.grid.setAliveCell(cell);
-                    this.nextGrid[x,y]=1;
-                } else if (this.currentGrid[x,y]==1 && neighborhood!=2 && neighborhood!=3) {
-                    this.nextGrid[x,y]=0;
-                    this.grid.setDeadCell(cell);
+                if (this.currentGrid[y][x]==0 && neighborhood==2) {
+                    this.nextGrid[y][x]=1;
+                    this.grid.setAliveCell(this.cellIdPrefix+count);
+                } else if (this.currentGrid[y][x]==1 && (neighborhood==2 || neighborhood==3)) {
+                    this.grid.setAliveCell(this.cellIdPrefix+count);
+                    this.nextGrid[y][x]=1;
+                } else if (this.currentGrid[x][y]==1 && neighborhood!=2 && neighborhood!=3) {
+                    this.nextGrid[y][x]=0;
+                    this.grid.setDeadCell(this.cellIdPrefix+count);
                 } else {
-                    this.nextGrid[x,y]=0;
-                    this.grid.setDeadCell(cell);
+                    this.nextGrid[y][x]=0;
+                    this.grid.setDeadCell(this.cellIdPrefix+count);
                 }
                 count++;
             }
@@ -75,33 +80,31 @@ class Game {
     }
 
     calculateNeighborhood(x,y) {
-        let top=(y==0)?this.gridSize-1:y;
-        let bottom=(y==this.gridSize-1)?0:y;
-        let left=(x==0)?this.gridSize-1:x;
-        let right=(x==this.gridSize-1)?0:x;
+        let top= (y==0) ? this.gridSize-1 : y-1;
+        let bottom= (y==this.gridSize-1) ? 0 : y+1;
+        let left= (x==0) ? this.gridSize-1 : x-1;
+        let right= (x==this.gridSize-1) ? 0 : x+1;
         let nbCell=0;
         // On commence par top et on tourne dans le sens d'une aiguille d'une montre
-        if (this.gridSize[x,top]==1) nbCell++;
-        if (this.gridSize[right,top]==1) nbCell++;
-        if (this.gridSize[right,y]==1) nbCell++;
-        if (this.gridSize[right,bottom]==1) nbCell++;
-        if (this.gridSize[x,bottom]==1) nbCell++;
-        if (this.gridSize[left,bottom]==1) nbCell++;
-        if (this.gridSize[left,y]==1) nbCell++;
-        if (this.gridSize[left,top]==1) nbCell++
+        if (this.currentGrid[top][x]==1) nbCell++;
+        if (this.currentGrid[top][right]==1) nbCell++;
+        if (this.currentGrid[y][right]==1) nbCell++;
+        if (this.currentGrid[bottom][right]==1) nbCell++;
+        if (this.currentGrid[bottom][x]==1) nbCell++;
+        if (this.currentGrid[bottom][left]==1) nbCell++;
+        if (this.currentGrid[y][left]==1) nbCell++;
+        if (this.currentGrid[top][left]==1) nbCell++;
         return nbCell;
     }
 
     clickCell(x,y,id) {
         if (!this.isPlaying) {
-            if (!this.currentGrid[x,y]) {
-                this.currentGrid[x,y]=1;
-                let cell = document.getElementById(id);
-                this.grid.setAliveCell(cell);
+            if (!this.currentGrid[y][x]) {
+                this.currentGrid[y][x]=1;
+                this.grid.setAliveCell(id);
             } else {
-                this.currentGrid[x,y]=0;
-                let cell = document.getElementById(id);
-                this.grid.setDeadCell(cell);
+                this.currentGrid[y][x]=0;
+                this.grid.setDeadCell(id);
             }
         }
     }
