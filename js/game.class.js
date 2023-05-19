@@ -55,6 +55,8 @@ class Game {
 
     calculateNextGrid() {
         console.log('dans calculateNextGrid');
+        console.log('currentGrid');
+        console.log(this.currentGrid);
         let count=0;
         for (let y=0;y<this.gridSize;y++) {
             for (let x=0;x<this.gridSize;x++) {
@@ -62,10 +64,7 @@ class Game {
                 if (this.currentGrid[y][x]==0 && neighborhood==3) {
                     this.nextGrid[y][x]=1;
                     this.grid.setAliveCell(this.cellIdPrefix+count);
-                } else if (this.currentGrid[y][x]==1 && (neighborhood==2 || neighborhood==3)) {
-                    this.grid.setAliveCell(this.cellIdPrefix+count);
-                    this.nextGrid[y][x]=1;
-                } else if (this.currentGrid[x][y]==1 && neighborhood!=2 && neighborhood!=3) {
+                } else if (this.currentGrid[y][x]==1 && (neighborhood!=2 && neighborhood!=3)) {
                     this.nextGrid[y][x]=0;
                     this.grid.setDeadCell(this.cellIdPrefix+count);
                 } else {
@@ -75,6 +74,10 @@ class Game {
             }
         }
         this.currentGrid=this.nextGrid;
+        console.log('currentGrid next');
+        console.log(this.currentGrid);
+        console.log('nextGrid');
+        console.log(this.nextGrid);
     }
 
     calculateNeighborhood(x,y) {
@@ -92,7 +95,6 @@ class Game {
         if (this.currentGrid[bottom][left]==1) nbCell++;
         if (this.currentGrid[y][left]==1) nbCell++;
         if (this.currentGrid[top][left]==1) nbCell++;
-        //console.log('[x]:'+x+' [y]:'+y+'='+this.currentGrid[y][x]+" / voisin : "+nbCell);
         return nbCell;
     }
 

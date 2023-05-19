@@ -23,7 +23,6 @@ class Grid {
                 game.nextGrid[y][x]=0;
                 cell.addEventListener('click', () => {
                     game.clickCell(x,y,id);
-                    // game.calculateNeighborhood(x,y);
                 });
                 row.appendChild(cell);
                 count++;
