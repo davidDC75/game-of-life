@@ -5,14 +5,14 @@ class Game {
     nextGrid = null;
     gridSize = 0;
     cellIdPrefix = '';
-    timer = 3500;
+    timer = 2500;
     myInterval = Object;
     grid = Object;
 
     constructor(gridContainer,gridSize,cellIdPrefix,timer) {
         this.gridSize = gridSize;
         this.cellIdPrefix = cellIdPrefix;
-        this.timer = 0;
+        this.timer = timer;
 
         this.currentGrid=new Array(gridSize);
         this.nextGrid=new Array(gridSize);
@@ -39,7 +39,6 @@ class Game {
             this.myInterval = setInterval( ()=> {
                 this.calculateNextGrid();
             },this.timer);
-        //     this.calculateNextGrid();
         }
     }
 
@@ -55,10 +54,10 @@ class Game {
     }
 
     calculateNextGrid() {
+        console.log('dans calculateNextGrid');
         let count=0;
         for (let y=0;y<this.gridSize;y++) {
             for (let x=0;x<this.gridSize;x++) {
-                let cell=document.getElementById(this.cellIdPrefix+count);
                 let neighborhood=this.calculateNeighborhood(x,y);
                 if (this.currentGrid[y][x]==0 && neighborhood==2) {
                     this.nextGrid[y][x]=1;

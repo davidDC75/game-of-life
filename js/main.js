@@ -4,7 +4,7 @@
 
 gridSize=10;
 cellIdPrefix='cell-id-';
-timer=5000;
+timer=1500;
 gridContainer=document.getElementById('grid');
 
 game= new Game(gridContainer,gridSize,cellIdPrefix,timer);
