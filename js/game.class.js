@@ -29,6 +29,11 @@ class Game {
         pause.addEventListener('click',()=> {
             this.pause();
         });
+
+        let reset = document.getElementById('reset-button');
+        reset.addEventListener('click', ()=> {
+            this.reset();
+        })
     }
 
     initGame() {
@@ -52,7 +57,8 @@ class Game {
     }
 
     reset() {
-
+        this.grid.clearGrid();
+        this.grid.drawEmptyGrid(this);
     }
 
     calculateNextGrid() {
