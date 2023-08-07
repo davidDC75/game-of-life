@@ -19,14 +19,16 @@ class Game {
 
         this.grid = new Grid(gridContainer);
         this.grid.drawEmptyGrid(this);
+
         let play = document.getElementById('play-button');
-        play.onclick = () => {
+        play.addEventListener('click', ()=> {
             this.play();
-        }
+        });
+
         let pause = document.getElementById('pause-button');
-        pause.onclick = () => {
+        pause.addEventListener('click',()=> {
             this.pause();
-        }
+        });
     }
 
     initGame() {
@@ -54,17 +56,20 @@ class Game {
     }
 
     calculateNextGrid() {
-        console.log('dans calculateNextGrid');
-        console.log('currentGrid');
-        console.log(this.currentGrid);
+        // On initialise la grille temporaire
+        for (let y=0;y<this.gridSize;y++) {
+            this.nextGrid[y].fill(0,0,this.gridSize-1);
+        }
+
         let count=0;
         for (let y=0;y<this.gridSize;y++) {
             for (let x=0;x<this.gridSize;x++) {
                 let neighborhood=this.calculateNeighborhood(x,y);
+
                 if (this.currentGrid[y][x]==0 && neighborhood==3) {
                     this.nextGrid[y][x]=1;
                     this.grid.setAliveCell(this.cellIdPrefix+count);
-                } else if (this.currentGrid[y][x]==1 && (neighborhood!=2 && neighborhood!=3)) {
+                } else if (this.currentGrid[y][x]==1 && neighborhood!=2 && neighborhood!=3) {
                     this.nextGrid[y][x]=0;
                     this.grid.setDeadCell(this.cellIdPrefix+count);
                 } else {
@@ -73,11 +78,13 @@ class Game {
                 count++;
             }
         }
-        this.currentGrid=this.nextGrid;
-        console.log('currentGrid next');
-        console.log(this.currentGrid);
-        console.log('nextGrid');
-        console.log(this.nextGrid);
+
+        // On copie le temporaire dans la grille suivante
+        for (let y=0;y<this.gridSize;y++) {
+            for (let x=0;x<this.gridSize;x++) {
+                this.currentGrid[y][x]=this.nextGrid[y][x];
+            }
+        }
     }
 
     calculateNeighborhood(x,y) {
@@ -95,6 +102,7 @@ class Game {
         if (this.currentGrid[bottom][left]==1) nbCell++;
         if (this.currentGrid[y][left]==1) nbCell++;
         if (this.currentGrid[top][left]==1) nbCell++;
+
         return nbCell;
     }
 
