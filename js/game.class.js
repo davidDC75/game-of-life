@@ -57,8 +57,10 @@ class Game {
     }
 
     reset() {
-        this.grid.clearGrid();
-        this.grid.drawEmptyGrid(this);
+        if (!this.isPlaying) {
+            this.grid.clearGrid();
+            this.grid.drawEmptyGrid(this);
+        }
     }
 
     calculateNextGrid() {
