@@ -17,6 +17,9 @@ class Game {
     sliderGrid = Object;
     sliderGridValue = Object;
     sliderGridButton = Object;
+    sliderTimer = Object;
+    sliderTimerValue = Object;
+    sliderTimerButton = Object;
     myInterval = Object;
     grid = Object;
 
@@ -73,6 +76,20 @@ class Game {
         this.sliderGridButton.addEventListener('click', () => {
             this.changeGridSize();
         });
+
+        this.sliderTimer = document.getElementById('slider-timer');
+        this.sliderTimer.addEventListener('change', () => {
+            this.changeTimerValueSlider();
+        });
+
+        this.sliderTimerValue = document.getElementById('slider-timer-value');
+
+        this.sliderTimerButton = document.getElementById('timer-button');
+
+        this.sliderTimerButton.addEventListener('click', () => {
+            this.changeTimer()
+        });
+
     }
 
     initGame() {
@@ -90,6 +107,7 @@ class Game {
             this.resetButton.classList.add('visibilityHidden');
             this.randomizeButton.classList.add('visibilityHidden');
             this.sliderGridButton.classList.add('visibilityHidden');
+            this.sliderTimerButton.classList.add('visibilityHidden');
         }
     }
 
@@ -102,6 +120,7 @@ class Game {
             this.resetButton.classList.remove('visibilityHidden');
             this.randomizeButton.classList.remove('visibilityHidden');
             this.sliderGridButton.classList.remove('visibilityHidden');
+            this.sliderTimerButton.classList.remove('visibilityHidden');
         }
     }
 
@@ -215,5 +234,13 @@ class Game {
             this.generation=0;
             this.refreshGeneration();
         }
+    }
+
+    changeTimerValueSlider() {
+        this.sliderTimerValue.innerHTML=this.sliderTimer.value+"ms";
+    }
+
+    changeTimer() {
+        this.timer=this.sliderTimer.value;
     }
 }

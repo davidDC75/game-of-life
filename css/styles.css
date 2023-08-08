@@ -107,6 +107,15 @@ div#slider-grid-container {
     margin: 1vh auto 1vh auto;
 }
 
+div#slider-timer-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 1vh auto 1vh auto;
+}
+
 span.slider-grid-info {
     font-family: 'Rajdhani', sans-serif;
     font-weight: 400;
