@@ -9,9 +9,12 @@ class Game {
     playButton = Object;
     pauseButton = Object;
     resetButton = Object;
+    sliderRandomize = Object;
+    sliderRandomizeValue = Object;
+    randomizeButton = Object;
     sliderGrid = Object;
-    sliderValue = Object;
-    sliderButton = Object;
+    sliderGridValue = Object;
+    sliderGridButton = Object;
     myInterval = Object;
     grid = Object;
 
@@ -27,31 +30,43 @@ class Game {
         this.grid.drawEmptyGrid(this);
 
         this.playButton = document.getElementById('play-button');
-        this.playButton.addEventListener('click', ()=> {
+        this.playButton.addEventListener('click', () => {
             this.play();
         });
 
         this.pauseButton = document.getElementById('pause-button');
-        this.pauseButton.addEventListener('click',()=> {
+        this.pauseButton.addEventListener('click',() => {
             this.pause();
         });
 
         this.pauseButton.classList.add('visibilityHidden');
 
         this.resetButton = document.getElementById('reset-button');
-        this.resetButton.addEventListener('click', ()=> {
+        this.resetButton.addEventListener('click', () => {
             this.reset();
         })
 
-        this.sliderGrid = document.getElementById('slider-grid');
-        this.sliderGrid.addEventListener('change', ()=> {
-            this.sliderChange();
+        this.sliderRandomize = document.getElementById('slider-randomize');
+        this.sliderRandomize.addEventListener('change', () => {
+            this.sliderRandomizeChange();
         });
 
-        this.sliderValue = document.getElementById('slider-value');
+        this.sliderRandomizeValue = document.getElementById('slider-randomize-value');
 
-        this.sliderButton = document.getElementById('slider-button');
-        this.sliderButton.addEventListener('click', () => {
+        this.randomizeButton = document.getElementById('randomize-button');
+        this.randomizeButton.addEventListener('click', () => {
+            this.randomize()
+        })
+
+        this.sliderGrid = document.getElementById('slider-grid');
+        this.sliderGrid.addEventListener('change', () => {
+            this.sliderGridChange();
+        });
+
+        this.sliderGridValue = document.getElementById('slider-grid-value');
+
+        this.sliderGridButton = document.getElementById('slider-button');
+        this.sliderGridButton.addEventListener('click', () => {
             this.changeGridSize();
         });
     }
@@ -69,6 +84,8 @@ class Game {
             this.playButton.classList.add('visibilityHidden');
             this.pauseButton.classList.remove('visibilityHidden');
             this.resetButton.classList.add('visibilityHidden');
+            this.randomizeButton.classList.add('visibilityHidden');
+            this.sliderGridButton.classList.add('visibilityHidden');
         }
     }
 
@@ -79,6 +96,8 @@ class Game {
             this.playButton.classList.remove('visibilityHidden');
             this.pauseButton.classList.add('visibilityHidden');
             this.resetButton.classList.remove('visibilityHidden');
+            this.randomizeButton.classList.remove('visibilityHidden');
+            this.sliderGridButton.classList.remove('visibilityHidden');
         }
     }
 
@@ -152,14 +171,34 @@ class Game {
         }
     }
 
-    sliderChange() {
-        this.sliderValue.innerHTML=this.sliderGrid.value;
+    sliderRandomizeChange() {
+        this.sliderRandomizeValue.innerHTML=this.sliderRandomize.value;
+    }
+
+    sliderGridChange() {
+        this.sliderGridValue.innerHTML=this.sliderGrid.value;
     }
 
     changeGridSize() {
         if (!this.isPlaying) {
             this.gridSize=this.sliderGrid.value;
             this.reset();
+        }
+    }
+
+    randomize() {
+        if (!this.isPlaying) {
+            this.reset();
+            let count=0;
+            for (let y=0;y<this.gridSize;y++) {
+                for (let x=0;x<this.gridSize;x++) {
+                    let randomNumber = Math.floor(Math.random()*10);
+                    if (randomNumber>this.sliderRandomize.value) {
+                        this.clickCell(x,y,this.cellIdPrefix+count);
+                    }
+                    count++;
+                }
+            }
         }
     }
 }

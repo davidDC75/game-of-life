@@ -21,10 +21,16 @@
             <button id="pause-button" class="transport-button">Pause</button>
             <button id="reset-button" class="transport-button">Reset</button>
         </div>
-        <div id="slider-container">
+        <div id="slider-randomize-container">
+            <span class="slider-grid-info">Randomize :</span>
+            <input type="range" min="2" max="9" value="5" id="slider-randomize" class="slider">
+            <div id="slider-randomize-value" class="slider-value">5</div>
+            <button id="randomize-button" class="transport-button">Randomize</button>
+        </div>
+        <div id="slider-grid-container">
             <span class="slider-grid-info">Grid size :</span>
             <input type="range" min="8" max="30" value="10" id="slider-grid" class="slider">
-            <div id="slider-value">10</div>
+            <div id="slider-grid-value" class="slider-value">10</div>
             <button id="slider-button" class="transport-button">New grid</button>
         </div>
     </main>
