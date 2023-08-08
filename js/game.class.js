@@ -6,9 +6,11 @@ class Game {
     gridSize = 0;
     cellIdPrefix = '';
     timer = 2500;
+    generation = 0;
     playButton = Object;
     pauseButton = Object;
     resetButton = Object;
+    generationValue = Object;
     sliderRandomize = Object;
     sliderRandomizeValue = Object;
     randomizeButton = Object;
@@ -45,6 +47,8 @@ class Game {
         this.resetButton.addEventListener('click', () => {
             this.reset();
         })
+
+        this.generationValue = document.getElementById('generation-value');
 
         this.sliderRandomize = document.getElementById('slider-randomize');
         this.sliderRandomize.addEventListener('change', () => {
@@ -105,7 +109,13 @@ class Game {
         if (!this.isPlaying) {
             this.grid.clearGrid();
             this.grid.drawEmptyGrid(this);
+            this.generation=0;
+            this.refreshGeneration();
         }
+    }
+
+    refreshGeneration() {
+        this.generationValue.innerHTML = this.generation;
     }
 
     calculateNextGrid() {
@@ -131,6 +141,9 @@ class Game {
                 count++;
             }
         }
+
+        this.generation++;
+        this.refreshGeneration();
 
         // On copie le temporaire dans la grille suivante
         for (let y=0;y<this.gridSize;y++) {
@@ -199,6 +212,8 @@ class Game {
                     count++;
                 }
             }
+            this.generation=0;
+            this.refreshGeneration();
         }
     }
 }

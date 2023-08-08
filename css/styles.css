@@ -82,6 +82,13 @@ button.transport-button:hover {
     visibility: hidden;
 }
 
+div.generation-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: black;
+}
+
 div#slider-randomize-container {
     display: flex;
     flex-flow: row nowrap;
