@@ -9,7 +9,7 @@ class Game {
     playButton = Object;
     pauseButton = Object;
     resetButton = Object;
-    slider = Object;
+    sliderGrid = Object;
     sliderValue = Object;
     sliderButton = Object;
     myInterval = Object;
@@ -43,8 +43,8 @@ class Game {
             this.reset();
         })
 
-        this.slider = document.getElementById('slider');
-        this.slider.addEventListener('change', ()=> {
+        this.sliderGrid = document.getElementById('slider-grid');
+        this.sliderGrid.addEventListener('change', ()=> {
             this.sliderChange();
         });
 
@@ -153,12 +153,12 @@ class Game {
     }
 
     sliderChange() {
-        this.sliderValue.innerHTML=this.slider.value;
+        this.sliderValue.innerHTML=this.sliderGrid.value;
     }
 
     changeGridSize() {
         if (!this.isPlaying) {
-            this.gridSize=this.slider.value;
+            this.gridSize=this.sliderGrid.value;
             this.reset();
         }
     }
