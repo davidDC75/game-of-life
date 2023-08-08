@@ -9,6 +9,9 @@ class Game {
     playButton = Object;
     pauseButton = Object;
     resetButton = Object;
+    slider = Object;
+    sliderValue = Object;
+    sliderButton = Object;
     myInterval = Object;
     grid = Object;
 
@@ -39,6 +42,18 @@ class Game {
         this.resetButton.addEventListener('click', ()=> {
             this.reset();
         })
+
+        this.slider = document.getElementById('slider');
+        this.slider.addEventListener('change', ()=> {
+            this.sliderChange();
+        });
+
+        this.sliderValue = document.getElementById('slider-value');
+
+        this.sliderButton = document.getElementById('slider-button');
+        this.sliderButton.addEventListener('click', () => {
+            this.changeGridSize();
+        });
     }
 
     initGame() {
@@ -137,7 +152,14 @@ class Game {
         }
     }
 
-    changeGridSize(gridSize) {
-        this.grid.gridSize=gridSize;
+    sliderChange() {
+        this.sliderValue.innerHTML=this.slider.value;
+    }
+
+    changeGridSize() {
+        if (!this.isPlaying) {
+            this.gridSize=this.slider.value;
+            this.reset();
+        }
     }
 }

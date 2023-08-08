@@ -10,7 +10,7 @@ html {
 div#grid {
     display: block;
     width: 200px;
-    height: 220px;
+    height: auto;
     margin: 1vh auto 1vh auto;
 }
 
@@ -37,7 +37,11 @@ div#grid div.aliveCell {
 }
 
 div#transport {
-    width: 290px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     margin: 1vh auto 1vh auto;
 }
 
@@ -47,7 +51,6 @@ button.transport-button {
     color: white;
     background-color: black;
     border: none;
-    border-radius: 10%;
     transition: all 0.4s;
     cursor: pointer;
 }
@@ -59,4 +62,13 @@ button.transport-button:hover {
 
 .visibilityHidden {
     visibility: hidden;
+}
+
+div#slider-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 1vh auto 1vh auto;
 }
