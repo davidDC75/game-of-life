@@ -3,8 +3,15 @@
     padding: 0;
 }
 
+html {
+    box-sizing: border-box;
+}
+
 div#grid {
     display: block;
+    width: 200px;
+    height: 220px;
+    margin: 1vh auto 1vh auto;
 }
 
 div#grid div.gridRow {
@@ -18,6 +25,7 @@ div#grid div.cellCommon {
     width: 20px;
     height: 20px;
     border: 1px solid black;
+    cursor: pointer;
 }
 
 div#grid div.deadCell {
@@ -28,3 +36,27 @@ div#grid div.aliveCell {
     background-color: #0000FF;
 }
 
+div#transport {
+    width: 290px;
+    margin: 1vh auto 1vh auto;
+}
+
+button.transport-button {
+    width: 90px;
+    height: 30px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 10%;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+button.transport-button:hover {
+    color: black;
+    background-color: white;
+}
+
+.visibilityHidden {
+    visibility: hidden;
+}

@@ -6,6 +6,9 @@ class Game {
     gridSize = 0;
     cellIdPrefix = '';
     timer = 2500;
+    playButton = Object;
+    pauseButton = Object;
+    resetButton = Object;
     myInterval = Object;
     grid = Object;
 
@@ -20,18 +23,20 @@ class Game {
         this.grid = new Grid(gridContainer);
         this.grid.drawEmptyGrid(this);
 
-        let play = document.getElementById('play-button');
-        play.addEventListener('click', ()=> {
+        this.playButton = document.getElementById('play-button');
+        this.playButton.addEventListener('click', ()=> {
             this.play();
         });
 
-        let pause = document.getElementById('pause-button');
-        pause.addEventListener('click',()=> {
+        this.pauseButton = document.getElementById('pause-button');
+        this.pauseButton.addEventListener('click',()=> {
             this.pause();
         });
 
-        let reset = document.getElementById('reset-button');
-        reset.addEventListener('click', ()=> {
+        this.pauseButton.classList.add('visibilityHidden');
+
+        this.resetButton = document.getElementById('reset-button');
+        this.resetButton.addEventListener('click', ()=> {
             this.reset();
         })
     }
@@ -46,6 +51,9 @@ class Game {
             this.myInterval = setInterval( ()=> {
                 this.calculateNextGrid();
             },this.timer);
+            this.playButton.classList.add('visibilityHidden');
+            this.pauseButton.classList.remove('visibilityHidden');
+            this.resetButton.classList.add('visibilityHidden');
         }
     }
 
@@ -53,6 +61,9 @@ class Game {
         if (this.isPlaying) {
             this.isPlaying = false;
             clearInterval(this.myInterval);
+            this.playButton.classList.remove('visibilityHidden');
+            this.pauseButton.classList.add('visibilityHidden');
+            this.resetButton.classList.remove('visibilityHidden');
         }
     }
 
