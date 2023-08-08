@@ -8,7 +8,6 @@ class Grid {
 
     drawEmptyGrid(game) {
         this.gridContainer.style.width=20*game.gridSize+"px";
-        // this.gridContainer.style.height=(20*game.gridSize)+60+"px";
         let count = 0;
         for(let y=0; y<game.gridSize; y++) {
             let row=document.createElement('div');
